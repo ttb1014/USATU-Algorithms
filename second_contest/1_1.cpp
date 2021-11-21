@@ -1,56 +1,55 @@
-// 58784521 - ID(TL error)
-// без сортировки вставками проходило все тесты
+// 58792169 - ID
 // https://contest.yandex.ru/contest/30914/problems/?success=57652794#194179/2016_10_05/4DrsObKEog - link
 
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
 
 using namespace std;
 
-void read_vector(vector<pair<vector<int>, int>>& arr, int n) {
+void read_arr(int** arr, int n) {
 	int iter = 0;
-	for (auto& a : arr) {
-		a.first = vector<int>(3);
-		for (auto& b : a.first) {
-			cin >> b;
-		}
-		a.second = iter++;
+	for (size_t i = 0; i < n; i++) {
+		cin >> arr[i][0] >> arr[i][1] >> arr[i][2];
+		arr[i][3] = iter++;
 	}
 }
 
-void print_ans(vector<pair<vector<int>, int>>& arr, int n) {
-	for (auto& a : arr) {
-		cout << a.second << " ";
+void print_arr(int** arr, int n) {
+	for (size_t i = 0; i < n; i++) {
+		cout << arr[i][3] << " ";
 	}
 }
 
-template<typename T>
-void insertion_sort(vector<T>& arr, bool compare(T t1, T t2)) {
+// сравнение по двум сторонам
+bool compare(int case1[3], int case2[3]) { 
+	if (case1[0] > case2[0] && (case1[1] > case2[1]) || (case1[2] > case2[2])) return true;
+	if (case1[1] > case2[1] && (case1[0] > case2[0]) || (case1[2] > case2[2])) return true;
+	if (case1[2] > case2[2] && (case1[0] > case2[0]) || (case1[1] > case2[1])) return true;
+	return false;
+}
 
-	for (size_t i = 1; i < arr.size(); i++) {
+void insertion_sort(int** arr, int n) {
+	for (int i = 1; i < n; i++) {
 		int j = i - 1;
 
-		for (; j >= 0 && !compare(arr[j], arr[j + 1]); j--) {
+		for (; j >= 0 && compare(arr[j], arr[j + 1]); j--) {
 			swap(arr[j], arr[j + 1]);
 		}
 	}
 }
 
 int main() {
-	int n;
+	int n; 
 	cin >> n;
-	vector<pair<vector<int>, int>> boxes(n);
-	read_vector(boxes, n);
+	int** arr = new int*[n];
+	for (size_t i = 0; i < n; i++) {
+		arr[i] = new int[4];
+	}
 
-	insertion_sort<pair<vector<int>, int>>(boxes, [](pair<vector<int>, int> x, pair<vector<int>, int> y) {
-		return (x.first[0] < y.first[0] && (x.first[1] < y.first[1] || x.first[2] < y.first[2]) ||
-			(x.first[1] < y.first[1] && (x.first[2] < y.first[2] || x.first[0] < y.first[0])) ||
-			(x.first[2] < y.first[2] && (x.first[1] < y.first[1] || x.first[0] < y.first[0]))
-			);
-		});
+	read_arr(arr, n);
 
-	print_ans(boxes, n);
+	insertion_sort(arr, n);
 
+	print_arr(arr, n);
+		
 	return 0;
 }

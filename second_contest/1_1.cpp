@@ -1,5 +1,5 @@
 // 58792169 - ID
-// https://contest.yandex.ru/contest/30914/problems/?success=57652794#194179/2016_10_05/4DrsObKEog - link
+// https://contest.yandex.ru/contest/30914/problems/1_1/ - link
 
 #include <iostream>
 

@@ -1,4 +1,4 @@
-// 58843124 - ID(TL)
+// 58843124 - ID
 // https://contest.yandex.ru/contest/30914/problems/3/ - link
 
 #include <iostream>

@@ -1,4 +1,4 @@
-// 58812537 - ID(TL)
+// 58843124 - ID(TL)
 // https://contest.yandex.ru/contest/30914/problems/3/ - link
 
 #include <iostream>
@@ -6,12 +6,12 @@
 using namespace std;
 
 void find_median(int* arr, int i1, int i2, int i3) {
-	if ((arr[i1] > arr[i2] && arr[i3] > arr[i1]) ||
-		arr[i1] < arr[i2] && arr[i1] > arr[i3])
+	if ((arr[i2] >= arr[i3] && arr[i3] >= arr[i1]) ||
+		arr[i1] >= arr[i3] && arr[i3] >= arr[i2])
 		swap(arr[i1], arr[i3]);
-	else if ((arr[i1] > arr[i2] && arr[i2] > arr[i3]) ||
-		arr[i1] < arr[i2] && arr[i2] < arr[i3])
-		swap(arr[i2], arr[i3]);
+	else if ((arr[i1] >= arr[i2] && arr[i2] >= arr[i3]) ||
+		arr[i1] <= arr[i2] && arr[i2] <= arr[i3])
+		swap(arr[i2], arr[i1]);
 }
 
 int partition(int* arr, int left, int right) {
@@ -21,17 +21,16 @@ int partition(int* arr, int left, int right) {
 
 	find_median(arr, left, middle, right - 1);
 
-	int pivot = arr[right - 1];
+	int pivot = arr[left];
 
-	int i = right - 2, j = right - 2;
-	while (j >= 0) {
+	int i = right - 1, j = right - 1;
+	while (j >= 1) {
 		if (arr[j] > pivot) {
-			swap(arr[i], arr[j]);
-			i--;
+			swap(arr[i--], arr[j]);
 		}
 		j--;
 	}
-	swap(arr[++i], arr[right - 1]);
+	swap(arr[i], arr[left]);
 
 	return i;
 }

@@ -1,6 +1,9 @@
 // https://contest.yandex.ru/contest/36361/problems/2.3/
 // ID - 67403474
 
+/*Дан невзвешенный неориентированный граф. Определить, является ли он двудольным. Требуемая сложность O(V+E).*/
+
+
 #include <iostream>
 #include <vector>
 #include <set>
